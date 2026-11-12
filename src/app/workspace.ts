@@ -9,7 +9,7 @@ import {
   moveUnit,
   castSkill,
 } from "../features/tactics";
-import { finishTurn } from "../features/initiative";
+import { finishTurn, delayTurn, reorder } from "../features/initiative";
 import {
   record,
   frame,
@@ -73,6 +73,7 @@ export function useWorkspace() {
           terrainRules[ground.terrain].cover,
           high,
         );
+        reorder(session.live);
         record(
           session,
           before,
@@ -113,6 +114,34 @@ export function useWorkspace() {
     skill.value = "";
     saveArchive(session);
   }
+  function delay() {
+    if (locked.value) return;
+    const before = clone(session.live);
+    try {
+      delayTurn(session.live);
+    } catch (e) {
+      notice.value = (e as Error).message;
+      return;
+    }
+    record(
+      session,
+      before,
+      "delay",
+      `${findUnit(before, before.active).name}延迟行动 · 移至队尾`,
+    );
+    selected.value = session.live.active;
+    skill.value = "";
+    saveArchive(session);
+    notice.value = session.events.at(-1)!.label;
+  }
+  const canDelay = computed(
+    () =>
+      !locked.value &&
+      !actor.value.delayed &&
+      !actor.value.moved &&
+      !actor.value.acted &&
+      session.live.queue.length > 1,
+  );
   function seek(n: number) {
     playback.stop();
     cursor.value = n;
@@ -146,8 +175,10 @@ export function useWorkspace() {
     targets,
     path,
     playback,
+    canDelay,
     cell,
     wait,
+    delay,
     seek,
     reset,
   };

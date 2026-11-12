@@ -11,6 +11,10 @@ export function loadArchive(): Session | null {
     assertBattle(s.live);
     assertBattle(s.initial);
     if (!Array.isArray(s.events)) return null;
+    for (const u of [...s.initial.units, ...s.live.units])
+      if (typeof u.delayed !== "boolean") u.delayed = false;
+    if (!Array.isArray(s.initial.base)) s.initial.base = [...s.initial.queue];
+    if (!Array.isArray(s.live.base)) s.live.base = [...s.live.queue];
     return s;
   } catch {
     return null;

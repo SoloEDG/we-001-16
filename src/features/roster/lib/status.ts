@@ -5,6 +5,12 @@ export function moveBudget(u: Unit) {
     u.move - (u.statuses.some((s) => s.kind === "slow") ? 2 : 0),
   );
 }
+export function speedValue(u: Unit) {
+  return Math.max(
+    1,
+    u.speed - (u.statuses.some((s) => s.kind === "slow") ? 4 : 0),
+  );
+}
 export function armorValue(u: Unit) {
   return u.armor + (u.statuses.some((s) => s.kind === "guard") ? 4 : 0);
 }

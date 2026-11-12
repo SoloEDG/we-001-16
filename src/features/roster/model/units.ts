@@ -23,5 +23,6 @@ export function createUnits(): Unit[] {
     statuses: [],
     moved: false,
     acted: false,
+    delayed: false,
   }));
 }

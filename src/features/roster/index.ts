@@ -4,6 +4,7 @@ export { professions } from "./model/professions";
 export {
   moveBudget,
   armorValue,
+  speedValue,
   tickStatuses,
   statusNames,
 } from "./lib/status";

@@ -182,6 +182,21 @@ h3 small {
   font-size: 10px;
   color: #90aaa0;
 }
+.queue-item b.slowed {
+  color: #d5ac73;
+}
+.queue-item i {
+  font-style: normal;
+  font-size: 8px;
+  color: #d7c487;
+  border: 1px solid #6f6442;
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+.queue-item.delayed {
+  border-style: dashed;
+  opacity: 0.78;
+}
 .queue-item.current {
   background: #36493c;
   border-color: #b7bb81;
@@ -466,6 +481,12 @@ aside {
   border: 0;
 }
 .end-turn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+.delay-turn {
   width: 100%;
   display: flex;
   justify-content: space-between;

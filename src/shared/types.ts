@@ -25,16 +25,18 @@ export interface Unit extends Point {
   statuses: Status[];
   moved: boolean;
   acted: boolean;
+  delayed: boolean;
 }
 export interface Battle {
   tiles: Tile[];
   units: Unit[];
   round: number;
   queue: string[];
+  base: string[];
   active: string;
   ended: string | null;
 }
-export type EventKind = "move" | "skill" | "wait" | "terrain";
+export type EventKind = "move" | "skill" | "wait" | "delay" | "terrain";
 export interface BattleEvent {
   id: number;
   kind: EventKind;

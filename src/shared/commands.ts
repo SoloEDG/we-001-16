@@ -4,6 +4,7 @@ export type Command =
   | { kind: "select"; id: string }
   | { kind: "skill"; id: string }
   | { kind: "wait" }
+  | { kind: "delay" }
   | { kind: "paint"; terrain: Terrain }
   | { kind: "seek"; cursor: number }
   | { kind: "reset" };

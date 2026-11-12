@@ -20,8 +20,10 @@ const {
   targets,
   path,
   playback,
+  canDelay,
   cell,
   wait,
+  delay,
   seek,
   reset,
 } = useWorkspace();
@@ -78,8 +80,8 @@ const {
         <div class="field-note">
           <span>✦ 战场提示</span>
           <p>
-            密林提供 3 点掩护；高地攻击 +2；迟缓减少 2
-            点移动；灼烧在自身行动结束时结算。
+            密林提供 3 点掩护；高地攻击 +2；迟缓减少 2 点移动并降低 4
+            点速度，队列随状态实时重排；灼烧在自身行动结束时结算；每轮可延迟一次行动。
           </p>
         </div>
       </div>
@@ -89,11 +91,13 @@ const {
           :skill="skill"
           :locked="locked"
           :notice="notice"
+          :can-delay="canDelay"
           @skill="
             skill = $event;
             brush = null;
           "
           @wait="wait"
+          @delay="delay"
         /><ReplayPanel
           :events="session.events"
           :cursor="cursor"
